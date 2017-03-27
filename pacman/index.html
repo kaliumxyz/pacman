@@ -3,36 +3,69 @@
 <style>
 html, body, canvas {
 	height: 100%;
-	width: 100%;
- 	margin: 0;
+	width: auto;
+ 	margin: 0 auto;
  	padding: 0;
 	overflow: hidden;
+	background: black;
 }
 </style>
 <body>
-<canvas width="224px" height='288px' style="">
+<canvas width="224px" height='288px' >
 	Please get a browser with proper HTML5 support
 </canvas>
 </body>
 <script>
-"use strict";
+"use strict"
 const socket = io.connect("http://127.0.0.1:3000")
 const select = selector => document.querySelector(selector)
 const send = msg => socket.emit('ClientMessage', msg)
 
+// Creates a new image object.
+const sheet = new Image()
+
+sheet.src = "sprites.png"
+
+const players = [{
+	role: "pacman",
+	coords: {x: 0, y: 0},
+	direction: 0
+},{
+	role: "blinky",
+	coords: {x: 0, y: 0},
+	direction: 0
+},{
+	role: "pinky",
+	coords: {x: 0, y: 0},
+	direction: 0
+},{
+	role: "ghost",
+	coords: {x: 0, y: 0},
+	direction: 0
+},{
+	role: "ghost",
+	coords: {x: 0, y: 0},
+	direction: 0
+}]
+
+
 // Gets every key the user presses and sends them to the server.
 window.onkeypress = e => send(e.key)
 
-const canvas = select('canvas');
+const canvas = select('canvas')
 const context = canvas.getContext('2d')
 
-let doStuff = context.fillText("wubwubwubwub",20,20)
+let doStuff = context.drawImage(sheet, 0, 0, 224, 248, 0, 24, 224, 248)
 
 
 context.font="20px Roboto"
-socket.on("ServerMessage", data => {
-context.clearRect(0, 0, canvas.width, canvas.height)
-doStuff = context.fillText(data,20,20)
+socket.on("UpdatePlayer", data => {
+context.drawImage(sheet, 0, 0, 224, 248, 0, 24, 224, 248)
+players.forEach(x => x.coords=data)
+doStuff = context.fillText(data, 0, 0)
+
+context.fillText(data, 0, 0)
+
 })
 
 
