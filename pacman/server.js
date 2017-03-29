@@ -23,9 +23,19 @@ const io = require('socket.io').listen(server)
 
 // Handles the websocket client connect.
 io.sockets.on("connection", socket => {
-  console.log("User connected: " + socket.id)
-  socket.on("ClientMessage", (key, agent) => handleInput(key, agent))
+    console.log("User connected: " + socket.id)
+    socket.on("ClientMessage", (key, agent) => handleInput(key, agent))
+
+    socket.on("updatePlayerLocation", updatePlayerLocation)
+
+    function updatePlayerLocation(data) {
+        console.log(data)
+        socket.broadcast.emit("updatePlayerLocation", data)
+    }
+
 })
+
+
 
 const handleInput = (key, agent) => {
   console.log(key)
