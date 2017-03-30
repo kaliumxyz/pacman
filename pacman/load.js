@@ -8,4 +8,7 @@ const load = callback => {
 	let script = document.createElement('script')
 	script.setAttribute("src",'client.js')
 	select("head").appendChild(script)
+        select('div').remove()
 }
+
+window.onkeydown = e => e.keyCode==32 && load()
