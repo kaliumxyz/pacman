@@ -21,7 +21,7 @@ const FPS = 1000 / 25
 
 // Creates a new image object.
 const sheet = new Image()
-sheet.src = "images/sprites.png"
+sheet.src = "sprites.png"
 
 // Loads the sounds we will use.
 // All .wav files are from: http://www.classicgaming.cc/classics/pac-man/sounds
@@ -37,8 +37,6 @@ let balls = []
 let gameState = Gamestate.START
 
 // Gets every key the user presses and sends them to the server.
-window.onkeypress = e => send(e.key)
-
 window.onkeydown = e => moveCharacter(e.keyCode)
 
 

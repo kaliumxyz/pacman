@@ -1,32 +1,7 @@
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-
-<script>
-"use strict"
-const select = selector => document.querySelector(selector)
-const load = callback => {
-	let canvas = document.createElement('canvas')
-	canvas.setAttribute('width', '224')
-	canvas.setAttribute('height', '288')
-	select('body').appendChild(canvas)
-	let script = document.createElement('script')
-	script.setAttribute("src",'client.js')
-	select("head").appendChild(script)
-}
-</script>
-<style>
-html, body, canvas, video {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	overflow: hidden;
-}
-canvas, video {
-	width: auto;
-	background: black;
-}
-</style>
+<link href='style.css' rel='stylesheet'>
+<script src='load.js'></script>
 <body>
 	<div onclick='load(this.remove())'>
 	<video width='224' height='288' loop autoplay>
