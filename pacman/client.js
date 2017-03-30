@@ -15,7 +15,6 @@ const Direction = {
 }
 
 const socket = io.connect("http://127.0.0.1:3000")
-const select = selector => document.querySelector(selector)
 const canvas = select('canvas')
 const context = canvas.getContext('2d')
 const FPS = 1000 / 25
@@ -30,6 +29,7 @@ const opening = new Audio("sounds/opening.ogg")
 const waka = new Audio("sounds/waka.ogg")
 const dead = new Audio("sounds/dead.ogg")
 
+opening.play()
 
 let myself = 0 //my own id
 let players = {}
@@ -98,7 +98,7 @@ socket.on("updatePlayerPosition", function updatePlayerPosition(data) {
 function GameLoop() {
     context.clearRect(0, 0, canvas.width, canvas.height)
     context.drawImage(sheet, 0, 0, 224, 248, 0, 24, 224, 248)
-    //drawBalls() 
+    //drawBalls()
     drawPlayers()
 }
 

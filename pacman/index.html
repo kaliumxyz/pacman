@@ -2,16 +2,16 @@
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 <script>
+"use strict"
 const select = selector => document.querySelector(selector)
 const load = callback => {
 	let canvas = document.createElement('canvas')
 	canvas.setAttribute('width', '224')
 	canvas.setAttribute('height', '288')
 	select('body').appendChild(canvas)
-	let load = document.createElement('script')
-	load.setAttribute("src",'client.js')
-	select("head").appendChild(load)
-	callback()
+	let script = document.createElement('script')
+	script.setAttribute("src",'client.js')
+	select("head").appendChild(script)
 }
 </script>
 <style>
@@ -28,8 +28,9 @@ canvas, video {
 }
 </style>
 <body>
-	<video width='224' height='288' onclick='load(this.remove())' loop autoplay>
+	<div onclick='load(this.remove())'>
+	<video width='224' height='288' loop autoplay>
 		<source src='video.mp4' type='video/mp4'>
 	</video>
+	</div>
 </body>
-
