@@ -11,4 +11,4 @@ const load = callback => {
         select('div').remove()
 }
 
-window.onkeydown = e => e.keyCode==32 && load()
+window.onkeydown = e => e.keyCode===32 && load()

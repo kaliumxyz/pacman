@@ -37,14 +37,16 @@ let balls = []
 let gameState = Gamestate.START
 
 // Gets every key the user presses and sends them to the server.
-window.onkeydown = e => moveCharacter(e.keyCode)
+window.onkeydown = e => socket.emit("keyStroke", e.keyCode)
 
+// window.onkeydown = e => moveCharacter(e.keyCode)
 
-function moveCharacter(keyCode) {
-    if (keyCode === Direction.RIGHT || keyCode === Direction.DOWN || keyCode === Direction.LEFT || keyCode === Direction.UP) {
-        socket.emit("updatePlayerDirection", keyCode)
-    }
-}
+// Gets the diraction and sends it.
+// function moveCharacter(keyCode) {
+//     if (keyCode === Direction.RIGHT || keyCode === Direction.DOWN || keyCode === Direction.LEFT || keyCode === Direction.UP) {
+//         socket.emit("updatePlayerDirection", keyCode)
+//     }
+// }
 
 function drawPlayers() {
     const localplayers = Object.keys(players)
