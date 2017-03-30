@@ -1,144 +1,35 @@
 <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+<script>
+const select = selector => document.querySelector(selector)
+const load = callback => {
+	let canvas = document.createElement('canvas')
+	canvas.setAttribute('width', '224')
+	canvas.setAttribute('height', '288')
+	select('body').appendChild(canvas)
+	let load = document.createElement('script')
+	load.setAttribute("src",'client.js')
+	select("head").appendChild(load)
+	callback()
+}
+</script>
 <style>
-    html, body, canvas {
-        height: 100%;
-        width: auto;
-        margin: 0 auto;
-        padding: 0;
-        overflow: hidden;
-        background: black;
-    }
+html, body, canvas, video {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	overflow: hidden;
+}
+canvas, video {
+	width: auto;
+	background: black;
+}
 </style>
 <body>
-    <canvas width="224px" height='288px'>
-        Please get a browser with proper HTML5 support
-    </canvas>
+	<video width='224' height='288' onclick='load(this.remove())' loop autoplay>
+		<source src='video.mp4' type='video/mp4'>
+	</video>
 </body>
-<script>
-    "use strict"
-    const Gamestate = {
-        START: 0,
-        DEAD: 1,
-        PLAYING: 2,
-        WIN: 3
-    }
 
-    const Direction = {
-        NEUTRAL : 0,
-        RIGHT: 39,
-        DOWN: 40,
-        LEFT: 37,
-        UP: 38
-    }
-
-    const socket = io.connect("http://127.0.0.1:3000")
-    const select = selector => document.querySelector(selector)
-    const send = msg => socket.emit('ClientMessage', msg)
-    const canvas = select('canvas')
-    const context = canvas.getContext('2d')
-    const FPS = 1000 / 25
-
-    // Creates a new image object.
-    const sheet = new Image()
-    sheet.src = "Images/sprites.png";
-
-    let myself = 0
-    let players = {
-    //    "player1": {
-    //    role: "pacman",
-    //    coords: { x: 0, y: 0 },
-    //    direction: Direction.NEUTRAL
-    //}, "player2" : {
-    //    role: "blinky",
-    //    coords: { x: 0, y: 0 },
-    //    direction: Direction.NEUTRAL
-    //    }, "player3": {
-    //    role: "pinky",
-    //    coords: { x: 0, y: 0 },
-    //    direction: Direction.NEUTRAL
-    //}, "player4": {
-    //    role: "inky",
-    //    coords: { x: 0, y: 0 },
-    //    direction: Direction.NEUTRAL
-    //    }, "player5": {
-    //        role: "clyde",
-    //        coords: { x: 0, y: 0 },
-    //        direction: Direction.NEUTRAL
-    //    }
-    }
-
-
-    // Gets every key the user presses and sends them to the server.
-    window.onkeypress = e => send(e.key)
-
-    window.onkeydown = e => moveCharacter(e.keyCode)
-
-
-    function moveCharacter(keyCode) {
-        if (keyCode === Direction.RIGHT || keyCode === Direction.DOWN || keyCode === Direction.LEFT || keyCode === Direction.UP) {
-            socket.emit("updatePlayerDirection", keyCode)
-        }
-    }
-
-
-   
-    function drawPlayers() {
-        const localplayers = Object.keys(players)
-        let key = 0
-        for (let i = 0; i < localplayers.length; i++) {
-            if (i<5) {
-                key = localplayers[i]
-                const x = players[key]["coords"]["x"]
-                const y = players[key]["coords"]["y"]
-                let heightSpritePacman = 0 //To get the right pacman from the spritesheet
-                if (players[key]["direction"] == Direction.RIGHT) { heightSpritePacman = 298 }
-                if (players[key]["direction"] == Direction.DOWN) { heightSpritePacman = 330 }
-                if (players[key]["direction"] == Direction.LEFT) { heightSpritePacman = 282 }
-                if (players[key]["direction"] == Direction.UP) { heightSpritePacman = 314 }
-
-                context.drawImage(sheet, 209, heightSpritePacman, 13, 13, x, y, 13, 13)
-                console.log(players[key]["coords"]["x"])
-            } else {
-                //spectators should not be drawn
-                break
-            }     
-        }
-    }
-
-    socket.on("connected", function updatePlayers(data) {
-        players = data
-        console.log("onconnect")
-    })
-
-    socket.on("connectedYou", function (data) {
-        myself = data
-    })
-
-    socket.on("disconnect", function updatePlayerPosition(data) {
-        players = data
-    })
-
-    socket.on("updatePlayerPosition", function updatePlayerPosition(data) {
-        players = data
-    })
-
-    
-
-
-    //context.font = "20px Roboto"
-    //socket.on("UpdatePlayer", data => {
-    //    context.drawImage(sheet, 0, 0, 224, 248, 0, 24, 224, 248)
-    //    players.forEach(x => x.coords = data)
-    //    doStuff = context.fillText(data, 0, 0)
-
-    //    context.fillText(data, 0, 0)
-    //})
-    function GameLoop() {
-        context.clearRect(0, 0, canvas.width, canvas.height)
-        context.drawImage(sheet, 0, 0, 224, 248, 0, 24, 224, 248)
-        drawPlayers()
-    }
-
-    const game = window.setInterval(_ => GameLoop(), FPS)
-</script>

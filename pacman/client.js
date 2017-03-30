@@ -16,15 +16,13 @@ const Direction = {
 
 const socket = io.connect("http://127.0.0.1:3000")
 const select = selector => document.querySelector(selector)
-const send = msg => socket.emit('ClientMessage', msg)
 const canvas = select('canvas')
 const context = canvas.getContext('2d')
 const FPS = 1000 / 25
 
 // Creates a new image object.
 const sheet = new Image()
-sheet.src = "Images/sprites.png";
-
+sheet.src = "images/sprites.png"
 
 // Loads the sounds we will use.
 // All .wav files are from: http://www.classicgaming.cc/classics/pac-man/sounds
@@ -35,7 +33,8 @@ const dead = new Audio("sounds/dead.ogg")
 
 let myself = 0 //my own id
 let players = {}
-
+let balls = []
+let gameState = Gamestate.START
 
 // Gets every key the user presses and sends them to the server.
 window.onkeypress = e => send(e.key)
@@ -48,8 +47,6 @@ function moveCharacter(keyCode) {
         socket.emit("updatePlayerDirection", keyCode)
     }
 }
-
-
 
 function drawPlayers() {
     const localplayers = Object.keys(players)
