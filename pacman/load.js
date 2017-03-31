@@ -4,6 +4,7 @@ const load = callback => {
 	select('div').remove()
 	let div = document.createElement('div')
 	div.innerHTML = '<canvas width="224" height="288">please upgrade your browser.</canvas>' +
+		'<div class="controls">' +
 		'<button onclick="loadMenu()"> Back to menu</button>' +
 		'<button onclick="Mute()">Toggle sound</button>' +
 		'<div style="text-align:center;width:480px;">' +
@@ -20,7 +21,9 @@ const load = callback => {
 		'</li>' +
 		'</li>' +
 		'</ul>' +
-		'</div> '
+		'</div>'+
+		'</div>'
+	div.setAttribute('class','mainScreen')
 	select('body').appendChild(div)
 
 	let script = document.createElement('script')
