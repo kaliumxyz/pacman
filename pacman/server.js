@@ -133,7 +133,7 @@ const io = require('socket.io').listen(server)
 
 const checkMap = (player, data) => {
         //0=right 1=down 2=left 3=up. 1==| 2==_ 3== | 4== - 5==|_ 6==_| 7==-| 8==|-
-        const dist = 10
+        const dist = 2 
         nodesMap.forEach(node => {
                 // Two if statements for the sake of my sanity and debugging, remove if and only if this is the release canidate.
                 if (player["coords"]["x"] < node[0] + dist && player["coords"]["x"] > node[0] - dist)
@@ -143,64 +143,85 @@ const checkMap = (player, data) => {
                 console.log(node)
                 switch(node[2]){
                         case 1:
-                        if (data !== Direction.LEFT  && data){
-                        player["direction"] = data
+                        if (data == Direction.LEFT || !data){
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
-                        }
+                        } else {
+			if (data)
+                        player["direction"] = data
+			}
+
                         break;
                         case 2:
-                        if (data !== Direction.DOWN  && data){
-                        player["direction"] = data
+                        if (data == Direction.DOWN || !data){
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
-                        }
+                        } else {
+			if (data)
+                        player["direction"] = data
+			}
                         break;
                         case 3:
-                        if (data !== Direction.RIGHT && data) {
-                        player["direction"] = data
+                        if (data == Direction.RIGHT || !data) {
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
-                        }
+                        } else {
+			if (data)
+                        player["direction"] = data
+			}
                         break;
                         case 4:
-                        if (data !== Direction.UP && data) {
-                        player["direction"] = data
+                        if (data == Direction.UP || !data) {
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
-                        }
+                        } else {
+			if (data)
+                        player["direction"] = data
+			}
                         break;
                         case 5:
-                        if (data !== Direction.LEFT && data) 
-                        if (data !== Direction.DOWN) {
+                        if (data == Direction.LEFT || !data) 
+                        if (data == Direction.DOWN) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
-                        }
+                        } else {
+			if (data)
+                        player["direction"] = data
+			}
                         break;
                         case 6:
-                        if (data !== Direction.RIGHT && data) 
-                        if (data !== Direction.DOWN) {
+                        if (data == Direction.RIGHT || !data) 
+                        if (data == Direction.DOWN) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
-                        }
+                        } else {
+			if (data)
+                        player["direction"] = data
+			}
                         break;
                         case 7:
-                        if (data !== Direction.RIGHT && data) 
-                        if (data !== Direction.UP) {
+                        if (data == Direction.RIGHT || !data) 
+                        if (data == Direction.UP) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
-                        }
+                        } else {
+			if (data)
+                        player["direction"] = data
+			}
                         break;
                         case 8:
-                        if (data !== Direction.LEFT && data) 
-                        if (data !== Direction.UP) {
+                        if (data == Direction.LEFT || !data) 
+                        if (data == Direction.UP) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
-                        }
+                        } else {
+			if (data)
+                        player["direction"] = data
+			}
                         break;
                         default:
                         if (data) {
