@@ -94,13 +94,8 @@ socket.on("updatePlayerPosition", function updatePlayerPosition(data) {
 })
 
 function drawBalls() {
-    let px = 106
-    let py = 207
     context.fillStyle = "#FF9E83"
     for (var b = 0; b < balls.length; b++) {
-        if (px <= balls[b][0] && px + 13 >= balls[b][0] && py <= balls[b][1] && py + 13 >= balls[b][1] && balls[b][2] == undefined) {
-            balls[b][2] = 1, score++; if (b == 30 || b == 35 || b == 158 || b == 177) { score += 25 }
-        }
         if (balls[b][2] == undefined) {
             if (b == 30 || b == 35 || b == 158 || b == 177) { context.fillRect(balls[b][0] - 3, balls[b][1] - 3, 6, 6) } else {
                 context.fillRect(balls[b][0] - 1, balls[b][1] - 1, 2, 2)
