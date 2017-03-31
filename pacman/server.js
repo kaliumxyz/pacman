@@ -180,9 +180,7 @@ const checkMap = (player, data) => {
 			}
                         break;
                         case 5:
-                        if (data == Direction.LEFT || !data) 
-                        if (data == Direction.DOWN) {
-                        player["direction"] = data
+                        if (data == Direction.LEFT || data == Direction.DOWN || !data) {
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
                         } else {
@@ -191,9 +189,7 @@ const checkMap = (player, data) => {
 			}
                         break;
                         case 6:
-                        if (data == Direction.RIGHT || !data) 
-                        if (data == Direction.DOWN) {
-                        player["direction"] = data
+                        if (data == Direction.RIGHT || data == Direction.DOWN || !data) {
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
                         } else {
@@ -202,9 +198,7 @@ const checkMap = (player, data) => {
 			}
                         break;
                         case 7:
-                        if (data == Direction.RIGHT || !data) 
-                        if (data == Direction.UP) {
-                        player["direction"] = data
+                        if (data == Direction.RIGHT || data == Direction.UP || !data) {
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
                         } else {
@@ -213,9 +207,7 @@ const checkMap = (player, data) => {
 			}
                         break;
                         case 8:
-                        if (data == Direction.LEFT || !data) 
-                        if (data == Direction.UP) {
-                        player["direction"] = data
+                        if (data == Direction.LEFT || data == Direction.UP || !data) {
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
                         } else {
@@ -249,7 +241,8 @@ io.sockets.on("connection", socket => {
         console.log("User connected: " + socket.id)
         players[socket.id] = {
                 coords: { x: 5, y: 29 },
-                direction: Direction.RIGHT
+                direction: Direction.RIGHT,
+		score: 0
         }
         socket.emit("connected", players)
         socket.emit("connectedYou", socket.id)
