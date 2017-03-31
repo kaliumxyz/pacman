@@ -143,36 +143,35 @@ const checkMap = (player, data) => {
                 console.log(node)
                 switch(node[2]){
                         case 1:
-                        if (data !== Direction.LEFT) {
+                        if (data !== Direction.LEFT  && data){
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
-			move
                         }
                         break;
                         case 2:
-                        if (data !== Direction.DOWN) {
+                        if (data !== Direction.DOWN  && data){
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
                         }
                         break;
                         case 3:
-                        if (data !== Direction.RIGHT) {
+                        if (data !== Direction.RIGHT && data) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
                         }
                         break;
                         case 4:
-                        if (data !== Direction.UP) {
+                        if (data !== Direction.UP && data) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
                         }
                         break;
                         case 5:
-                        if (data !== Direction.LEFT) 
+                        if (data !== Direction.LEFT && data) 
                         if (data !== Direction.DOWN) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
@@ -180,7 +179,7 @@ const checkMap = (player, data) => {
                         }
                         break;
                         case 6:
-                        if (data !== Direction.RIGHT) 
+                        if (data !== Direction.RIGHT && data) 
                         if (data !== Direction.DOWN) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
@@ -188,7 +187,7 @@ const checkMap = (player, data) => {
                         }
                         break;
                         case 7:
-                        if (data !== Direction.RIGHT) 
+                        if (data !== Direction.RIGHT && data) 
                         if (data !== Direction.UP) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
@@ -196,7 +195,7 @@ const checkMap = (player, data) => {
                         }
                         break;
                         case 8:
-                        if (data !== Direction.LEFT) 
+                        if (data !== Direction.LEFT && data) 
                         if (data !== Direction.UP) {
                         player["direction"] = data
                         player["coords"]["x"] = node[0]
@@ -204,18 +203,21 @@ const checkMap = (player, data) => {
                         }
                         break;
                         default:
-                        player["direction"] = 0
+                        if (data) {
+                        player["direction"] = data
                         player["coords"]["x"] = node[0]
                         player["coords"]["y"] = node[1]
                         console.log("Error: Sorry we are doing something wrong ;-; please help us by telling us you read this.")
+			}
                 }
-	movePlayer(player)
         }
 })
+		movePlayer(player)
 }
-// const changeDirection(player, node){
-//
-// }
+
+function changeDirection(player, node){
+
+}
 const handleInput = (key, agent) => {
         //console.log(key)
         io.emit('UpdatePlayer', { key, agent })
@@ -241,6 +243,7 @@ io.sockets.on("connection", socket => {
         socket.on("keyStroke", function (data) {
                 console.log(data)
                 if (data>36 && data<41){
+            	checkMap(players[socket.id], data) 
                 }
         })
 
@@ -254,7 +257,7 @@ const localplayers = Object.keys(players)
         if (i < 5) {
             key = localplayers[i]
                 // Replace with switch when I start giving a f*ck.
-            checkMap(players[key], players[key]["direction"])
+            checkMap(players[key], players["direction"]) 
 
         }
 }}
@@ -264,7 +267,7 @@ function movePlayer(player){
             if (player["direction"] == Direction.RIGHT) { player["coords"]["x"] +=1 }
             if (player["direction"] == Direction.DOWN) { player["coords"]["y"] +=1 }
             if (player["direction"] == Direction.LEFT) { player["coords"]["x"] -= 1 }
-            if (player["direction"] == Direction.UP) { players["coords"]["y"] -= 1 }
+            if (player["direction"] == Direction.UP) { player["coords"]["y"] -= 1 }
 }
 
 // A horrible solution, but it works (bread or butter?).
