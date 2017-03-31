@@ -29,6 +29,7 @@ const load = callback => {
 
     let scores = document.createElement('div')
     scores.setAttribute('id', 'divScores')
+    scores.setAttribute('class','scoreboard')
     scores.innerHTML = `<h1>Points</h1> <ul id="scores"></ul>`
     div.appendChild(scores)
 

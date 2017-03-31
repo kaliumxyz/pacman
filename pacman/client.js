@@ -111,6 +111,8 @@ function drawBalls() {
 
 function drawPlayers() {
     const localplayers = Object.keys(players)
+    let playerDiv = document.getElementById("scores") //It might be better to only update changes
+    playerDiv.innerHTML = ''
     let key = 0
     for (let i = 0; i < localplayers.length; i++) {
         if (i < 5) {
@@ -124,8 +126,9 @@ function drawPlayers() {
             if (players[key]["direction"] == Direction.UP) { heightSpritePacman = 314 }
 
             context.drawImage(sheet, spriteY, heightSpritePacman, 13, 13, x, y, 13, 13)
-    
-            console.log(players[key]["coords"]["x"])
+            let item = document.createElement("li")
+            item.innerHTML = "<li>" + key + " : " + players[key]["score"] + "</li>"
+            playerDiv.appendChild(item)
         } else {
             //spectators should not be drawn
             break
