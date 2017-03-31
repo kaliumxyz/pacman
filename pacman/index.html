@@ -1,36 +1,149 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="utf-8" />
-<title>P@cM@n</title>
-<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-<link href='style.css' rel='stylesheet'>
-<script src='load.js'></script>
-<style>
-    html, body, canvas, video {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        overflow: hidden;
-    }
+    <meta charset="utf-8" />
+    <title>P@cM@n</title>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link href='style.css' rel='stylesheet'>
+    <script src='load.js'></script>
+    <style>
+        html, body, canvas, video {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            overflow: hidden;
+        }
 
-    canvas, video {
-        width: auto;
-        background: black;
-    }
-</style>
-
+        canvas, video {
+            width: auto;
+            background: black;
+        }
+    </style>
 </head>
 
 <body>
-<div onclick='load()'>
-<video width='224' height='288' loop autoplay>
-<source src='video.mp4' type='video/mp4'>
-</video>
-</div>
+    <div onclick='loadMenu()'>
+        <video width='224' height='288' loop autoplay>
+            <source src='video.mp4' type='video/mp4'>
+        </video>
+    </div>
+
+    <script id="menuScript" language="html5">
+        <style>
+            body {
+                font - family: 'Cookie', cursive;
+            font-size: 40px;
+            background-color: aquamarine;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        #menu {    
+                display: flex;
+            flex-direction: column;
+            border: 3px solid purple;
+        }
+
+        #menu button {
+                font - size: 40px;
+            }
+    </style>
+            <h1>Menu</h1>
+            <div id="menu">
+                <button onclick="load()" >Play</button> <!--go to lobby-->
+                <button onclick="" >Sound</button>
+                <button onclick="" >Credits</button>
+                <button onclick="loadTestTabel()">testTabel</button>
+            </div>
+    </script>
+
+    <script id="testTabel" language="html5">
+            <style>
+                body {
+                    background-color : white;
+            }
+            table {
+                    font - family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+                    border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+                    background - color: #dddddd;
+        }
+    </style>
+
+            <h1>Test Tabel</h1>
+            <button onclick='loadMenu()'> Back to menu</button>
+        <table>
+            <tr>
+                <th>User story</th>
+                <th>Chrome</th>
+                <th>Edge</th>
+                <th>FireFox</th>
+                <th>Opera</th>
+            </tr>
+            <tr>
+                <td>Als pacman speler wil ik mijn character kunnen bewegen, zodat ik niet opgegeten word.</td>
+                <td>Dit werkt</td>
+                <td>Helaas krijgen wij hier een SCRIPT7002 error</td>
+                <td>Dit werkt</td>
+                <td>Dit werkt</td>
+            </tr>
+            <tr>
+                <td>Als pacman speler wil ik balletjes kunnen opeten, zodat ik punten kan verdienen.</td>
+                <td></td>
+                <td>Helaas krijgen wij hier een SCRIPT7002 error</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Als pacman speler wil ik punten krijgen voor opgegeten balletjes, zodat ik kan opscheppen over mijn score.</td>
+                <td></td>
+                <td>Helaas krijgen wij hier een SCRIPT7002 error</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Als ghost speler wil ik de pacman speler kunnen opeten, zodat hij weinig punten krijgt.</td>
+                <td></td>
+                <td>Helaas krijgen wij hier een SCRIPT7002 error</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Als speler wil ik geluid kunnen horen, zodat ik mij meer bij het spel betrokken voel.</td>
+                <td>Dit werkt</td>
+                <td>Dit werkt</td>
+                <td>Dit werkt</td>
+                <td>Dit werkt</td>
+            </tr>
+            <tr>
+                <td>Als speler wil ik geluid kunnen muten, omdat ik het een irritant geluidje vind.</td>
+                <td>Dit werkt</td>
+                <td>Helaas krijgen wij hier een SCRIPT7002 error</td>
+                <td>Dit werkt</td>
+                <td></td>
+            </tr>
+        </table>
+            <section>
+                <p>Our HTML is valid HTML5 according to <a href="https://validator.w3.org/nu/#textarea">W3</a></p>
+                <p>Our CSS is valid CSS3 according to <a href="https://jigsaw.w3.org/css-validator/validator">Jigsaw</a></p>
+                <p>Our clientside javascript is valid ECMAScript 6 according to <a href="https://www.piliapp.com/syntax-check/es6/">pilipapp</a></p>
+                <p>Our serverside javascript is valid ECMAScript 6 according to <a href="https://www.piliapp.com/syntax-check/es6/">pilipapp</a></p>
+            </section>
+    </script>
 </body>
 </html>
-

@@ -15,16 +15,16 @@ const Direction = {
         UP: 38
 }
 
-
 const socket = io.connect("http://127.0.0.1:3000/")
 const canvas = select("canvas")
 const context = canvas.getContext("2d")
-
-const FPS = 1000 / 25
 context.imageSmoothingEnabled = false;
 context.webkitImageSmoothingEnabled = false;
 context.mozImageSmoothingEnabled = false;
-// Creates a new image object.
+const FPS = 1000 / 25
+
+
+// Creates a new image object for the sprites we need
 const sheet = new Image()
 sheet.src = "sprites.png"
 
@@ -35,7 +35,12 @@ const waka = new Audio("sounds/waka.ogg")
 const dead = new Audio("sounds/dead.ogg")
 let spriteY = 209 // uniform naming will be fixed later, I'm too tired.
 
-opening.play()
+let sound = true
+function Mute() {
+    sound = !sound
+    if (sound) { opening.play() } else { opening.pause() }
+}   
+
 
 let myself = 0 //my own id
 let players = {}
@@ -53,54 +58,7 @@ window.onkeydown = e => moveCharacter(e.keyCode)
 window.onkeydown = e => socket.emit("keyStroke", e.keyCode)
 
 
-// window.onkeydown = e => moveCharacter(e.keyCode)
 
-// Gets the diraction and sends it.
-// function moveCharacter(keyCode) {
-//     if (keyCode === Direction.RIGHT || keyCode === Direction.DOWN || keyCode === Direction.LEFT || keyCode === Direction.UP) {
-//         socket.emit("updatePlayerDirection", keyCode)
-//     }
-// }
-
-function drawPlayers() {
-        const localplayers = Object.keys(players)
-        let key = 0
-        for (let i = 0; i < localplayers.length; i++) {
-                if (i < 5) {
-                        key = localplayers[i]
-                        let x = players[key]["coords"]["x"]
-                        let y = players[key]["coords"]["y"]
-                        let heightSpritePacman = 0 //To get the right pacman from the spritesheet
-                        if (players[key]["direction"] == Direction.RIGHT) { heightSpritePacman = 298 }
-                        if (players[key]["direction"] == Direction.DOWN) { heightSpritePacman = 330 }
-                        if (players[key]["direction"] == Direction.LEFT) { heightSpritePacman = 282 }
-                        if (players[key]["direction"] == Direction.UP) { heightSpritePacman = 314 }
-
-                        context.drawImage(sheet, spriteY , heightSpritePacman, 13, 13, x, y, 13, 13)
-                        console.log(players[key]["coords"]["x"])
-                } else {
-                        //spectators should not be drawn
-                        break
-                }
-        }
-}
-
-
-function drawBalls() {
-    let px = 106
-    let py = 207
-    context.fillStyle = "#FF9E83"
-    for (var b = 0; b < balls.length; b++) {
-        if (px <= balls[b][0] && px + 13 >= balls[b][0] && py <= balls[b][1] && py + 13 >= balls[b][1] && balls[b][2] == undefined) {
-            balls[b][2] = 1, score++; if (b == 30 || b == 35 || b == 158 || b == 177) { score += 25 }
-        }
-        if (balls[b][2] == undefined) {
-            if (b == 30 || b == 35 || b == 158 || b == 177) { context.fillRect(balls[b][0] - 3, balls[b][1] - 3, 6, 6) } else {
-                context.fillRect(balls[b][0] - 1, balls[b][1] - 1, 2, 2)
-            }
-        }
-    }
-}
 
 socket.on("connected", function updatePlayers(data) {
         players = data
@@ -118,6 +76,46 @@ socket.on("disconnect", function updatePlayerPosition(data) {
 socket.on("updatePlayerPosition", function updatePlayerPosition(data) {
         players = data
 })
+
+function drawBalls() {
+    let px = 106
+    let py = 207
+    context.fillStyle = "#FF9E83"
+    for (var b = 0; b < balls.length; b++) {
+        if (px <= balls[b][0] && px + 13 >= balls[b][0] && py <= balls[b][1] && py + 13 >= balls[b][1] && balls[b][2] == undefined) {
+            balls[b][2] = 1, score++; if (b == 30 || b == 35 || b == 158 || b == 177) { score += 25 }
+        }
+        if (balls[b][2] == undefined) {
+            if (b == 30 || b == 35 || b == 158 || b == 177) { context.fillRect(balls[b][0] - 3, balls[b][1] - 3, 6, 6) } else {
+                context.fillRect(balls[b][0] - 1, balls[b][1] - 1, 2, 2)
+            }
+        }
+    }
+}
+
+function drawPlayers() {
+    const localplayers = Object.keys(players)
+    let key = 0
+    for (let i = 0; i < localplayers.length; i++) {
+        if (i < 5) {
+            key = localplayers[i]
+            let x = players[key]["coords"]["x"]
+            let y = players[key]["coords"]["y"]
+            let heightSpritePacman = 0 //To get the right pacman from the spritesheet
+            if (players[key]["direction"] == Direction.RIGHT) { heightSpritePacman = 298 }
+            if (players[key]["direction"] == Direction.DOWN) { heightSpritePacman = 330 }
+            if (players[key]["direction"] == Direction.LEFT) { heightSpritePacman = 282 }
+            if (players[key]["direction"] == Direction.UP) { heightSpritePacman = 314 }
+
+            context.drawImage(sheet, spriteY, heightSpritePacman, 13, 13, x, y, 13, 13)
+    
+            console.log(players[key]["coords"]["x"])
+        } else {
+            //spectators should not be drawn
+            break
+        }
+    }
+}
 
 let gametimer = 0
 function drawScore() {
@@ -152,7 +150,6 @@ function drawScore() {
 
 
 function GameLoop() {
-
     context.clearRect(0, 0, canvas.width, canvas.height)
     context.drawImage(sheet, 0, 0, 224, 248, 0, 24, 224, 248)
     drawBalls()
@@ -161,7 +158,6 @@ function GameLoop() {
 }
 
 const game = window.setInterval(_ => GameLoop(), FPS)
-
 
 
 const animate = window.setInterval(_ =>{
