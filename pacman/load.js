@@ -35,7 +35,19 @@ const loadMenu = callback => {
 	select('div').remove()
 	let div = document.createElement('div')
 	div.setAttribute('class','mainMenu')
-	div.innerHTML = document.getElementById('menuScript').innerHTML;
+	div.innerHTML = '<div class="mainMenu">' +
+		'<div id="menu">' +
+		'<button onclick="load()" >Play</button> <!--go to lobby-->' +
+		'<button onclick="" >Sound</button>' +
+		'<button onclick="" >Credits</button>' +
+		'<button onclick="loadTestTabel()">test Tabel</button>' +
+		'</div>' +
+		'<div class="videoContainer">' +
+		'<video width=\'224\' height=\'288\' loop autoplay>' +
+		'<source src=\'video.mp4\' type=\'video/mp4\'>' +
+		'</video>' +
+		'</div>' +
+		'</div>' 
 	select('body').appendChild(div)
 }
 
@@ -44,7 +56,66 @@ const loadMenu = callback => {
 const loadTestTabel = callback => {
 	select('div').remove()
 	let div = document.createElement('div')
-	div.innerHTML = document.getElementById('testTabel').innerHTML;
+	div.innerHTML =	'<h1>Test Tabel</h1>' +
+		'<button onclick=\'loadMenu()\'> Back to menu</button>' +
+		'<table>' +
+		'<tr>' +
+		'<th>User story</th>' +
+		'<th>Chrome</th>' +
+		'<th>Edge</th>' +
+		'<th>FireFox</th>' +
+		'<th>Opera</th>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Als pacman speler wil ik mijn character kunnen bewegen, zodat ik niet opgegeten word.</td>' +
+		'<td>Dit werkt</td>' +
+		'<td>Helaas krijgen wij hier een SCRIPT7002 error</td>' +
+		'<td>Dit werkt</td>' +
+		'<td>Dit werkt</td>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Als pacman speler wil ik balletjes kunnen opeten, zodat ik punten kan verdienen.</td>' +
+		'<td></td>' +
+		'<td>Helaas krijgen wij hier een SCRIPT7002 error</td>' +
+		'<td></td>' +
+		'<td></td>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Als pacman speler wil ik punten krijgen voor opgegeten balletjes, zodat ik kan opscheppen over mijn score.</td>' +
+		'<td></td>' +
+		'<td>Helaas krijgen wij hier een SCRIPT7002 error</td>' +
+		'<td></td>' +
+		'<td></td>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Als ghost speler wil ik de pacman speler kunnen opeten, zodat hij weinig punten krijgt.</td>' +
+		'<td></td>' +
+		'<td>Helaas krijgen wij hier een SCRIPT7002 error</td>' +
+		'<td></td>' +
+		'<td></td>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Als speler wil ik geluid kunnen horen, zodat ik mij meer bij het spel betrokken voel.</td>' +
+		'<td>Dit werkt</td>' +
+		'<td>Dit werkt</td>' +
+		'<td>Dit werkt</td>' +
+		'<td>Dit werkt</td>' +
+		'</tr>' +
+		'<tr>' +
+		'<td>Als speler wil ik geluid kunnen muten, omdat ik het een irritant geluidje vind.</td>' +
+		'<td>Dit werkt</td>' +
+		'<td>Helaas krijgen wij hier een SCRIPT7002 error</td>' +
+		'<td>Dit werkt</td>' +
+		'<td></td>' +
+		'</tr>' +
+		'</table>' +
+		'<section>' +
+		'<p>Our HTML is valid HTML5 according to <a href="https://validator.w3.org/nu/#textarea">W3</a></p>' +
+		'<p>Our CSS is valid CSS3 according to <a href="https://jigsaw.w3.org/css-validator/validator">Jigsaw</a></p>' +
+		'<p>Our clientside javascript is valid ECMAScript 6 according to <a href="https://www.piliapp.com/syntax-check/es6/">pilipapp</a></p>' +
+		'<p>Our serverside javascript is valid ECMAScript 6 according to <a href="https://www.piliapp.com/syntax-check/es6/">pilipapp</a></p>' +
+		'</section> '
 	select('body').appendChild(div)
 }
 
+loadMenu()
