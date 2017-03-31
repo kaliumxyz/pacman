@@ -9,9 +9,19 @@ const load = callback => {
     canvas.setAttribute('height', '288')
     div.appendChild(canvas)
 
-    let span = document.createElement('span')
-    span.innerHTML = '<button onclick="loadMenu()" ></button>'
-    div.appendChild(span)
+    let backButton = document.createElement('span')
+    backButton.innerHTML = '<button onclick="loadMenu()"> Back to menu</button>'
+    div.appendChild(backButton)
+
+    let soundButton = document.createElement('span')
+    soundButton.innerHTML = '<button onclick="Mute()">Toggle sound</button>'
+    div.appendChild(soundButton)
+
+    let scores = document.createElement('div')
+    scores.setAttribute('id', 'divScores')
+    scores.innerHTML = `<h1>Points</h1> <ul id="scores"></ul>`
+    div.appendChild(scores)
+
     select('body').appendChild(div)
    
 
