@@ -132,7 +132,7 @@ const server = http.createServer((req, res) => {
 const io = require('socket.io').listen(server)
 
 const checkMap = (player, data) => {
-        //0=right 1=down 2=left 3=up. split= 1==| 2==_ 3== | 4== - 5==|_ 6==_| 7==-| 8==|-
+        //0=right 1=down 2=left 3=up. 1==| 2==_ 3== | 4== - 5==|_ 6==_| 7==-| 8==|-
         const dist = 10
         nodesMap.forEach(node => {
                 // Two if statements for the sake of my sanity and debugging, remove if and only if this is the release canidate.
@@ -141,12 +141,54 @@ const checkMap = (player, data) => {
                 {
                 console.log(player["coords"])
                 console.log(node)
-                switch(node[3]){
-                        case 0:
-
+                switch(node[2]){
+                        case 1:
+                        if (data !== Direction.LEFT) {
+                        player["direction"] = data
+                        player["coords"]["x"] -= 1
+                        }
+                        console.log("This is number 1")
+                        break;
+                        case 2:
+                        if (data !== Direction.DOWN) {
+                        player["direction"] = data
+                        player["coords"]["x"] -= 1
+                        }
+                        console.log("This is number 2")
+                        break;
+                        case 3:
+                        if (data !== Direction.RIGHT) {
+                        player["direction"] = data
+                        player["coords"]["x"] -= 1
+                        }
+                        console.log("This is number 3")
+                        break;
+                        case 4:
+                        if (data !== Direction.UP) {
+                        player["direction"] = data
+                        player["coords"]["x"] -= 1
+                        }
+                        console.log("This is number 4")
+                        break;
+                        case 5:
+                        player["direction"] = data
+                        console.log("This is number 5")
+                        break;
+                        case 6:
+                        player["direction"] = data
+                        console.log("This is number 6")
+                        break;
+                        case 7:
+                        player["direction"] = data
+                        console.log("This is number 7")
+                        break;
+                        case 8:
+                        player["direction"] = data
+                        console.log("This is number 8")
+                        break;
                         default:
                         player["direction"] = data
-                        console.log("Debug mode is active.")
+                        console.log("Error: Sorry we are doing something wrong ;-; please help us by telling us you read this.")
                 }
         }
 })
