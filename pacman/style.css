@@ -9,3 +9,13 @@ html, body, canvas, video {
 canvas, video {
 	width: auto;
 }
+
+ul {
+    list-style-type: none;
+}
+
+.scoreboard {
+    background-color: white;
+}
+
+
