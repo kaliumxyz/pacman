@@ -30,6 +30,7 @@ sheet.src = "sprites.png"
 const opening = new Audio("sounds/opening.ogg")
 const waka = new Audio("sounds/waka.ogg")
 const dead = new Audio("sounds/dead.ogg")
+let spriteY = 209 // uniform naming will be fixed later, I'm too tired.
 
 opening.play()
 
@@ -64,7 +65,7 @@ function drawPlayers() {
                         if (players[key]["direction"] == Direction.LEFT) { heightSpritePacman = 282 }
                         if (players[key]["direction"] == Direction.UP) { heightSpritePacman = 314 }
 
-                        context.drawImage(sheet, 209, heightSpritePacman, 13, 13, x, y, 13, 13)
+                        context.drawImage(sheet, spriteY , heightSpritePacman, 13, 13, x, y, 13, 13)
                         console.log(players[key]["coords"]["x"])
                 } else {
                         //spectators should not be drawn
@@ -105,3 +106,9 @@ function GameLoop() {
 }
 
 const game = window.setInterval(_ => GameLoop(), FPS)
+const animate = window.setInterval(_ =>{
+  if (spriteY<196){
+    spriteY += 16
+} else {
+  spriteY = 177
+}}, 500)

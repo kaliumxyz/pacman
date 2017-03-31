@@ -145,49 +145,54 @@ const checkMap = (player, data) => {
                         case 1:
                         if (data !== Direction.LEFT) {
                         player["direction"] = data
-                        player["coords"]["x"] -= 1
+                        player["coords"]["x"] = node[0]
+                        player["coords"]["y"] = node[1]
                         }
-                        console.log("This is number 1")
                         break;
                         case 2:
                         if (data !== Direction.DOWN) {
                         player["direction"] = data
-                        player["coords"]["x"] -= 1
+                        player["coords"]["x"] = node[0]
+                        player["coords"]["y"] = node[1]
                         }
-                        console.log("This is number 2")
                         break;
                         case 3:
                         if (data !== Direction.RIGHT) {
                         player["direction"] = data
-                        player["coords"]["x"] -= 1
+                        player["coords"]["x"] = node[0]
+                        player["coords"]["y"] = node[1]
                         }
-                        console.log("This is number 3")
                         break;
                         case 4:
                         if (data !== Direction.UP) {
                         player["direction"] = data
-                        player["coords"]["x"] -= 1
+                        player["coords"]["x"] = node[0]
+                        player["coords"]["y"] = node[1]
                         }
-                        console.log("This is number 4")
                         break;
                         case 5:
                         player["direction"] = data
-                        console.log("This is number 5")
+                        player["coords"]["x"] = node[0]
+                        player["coords"]["y"] = node[1]
                         break;
                         case 6:
                         player["direction"] = data
-                        console.log("This is number 6")
+                        player["coords"]["x"] = node[0]
+                        player["coords"]["y"] = node[1]
                         break;
                         case 7:
                         player["direction"] = data
-                        console.log("This is number 7")
+                        player["coords"]["x"] = node[0]
+                        player["coords"]["y"] = node[1]
                         break;
                         case 8:
                         player["direction"] = data
-                        console.log("This is number 8")
+                        player["coords"]["x"] = node[0]
+                        player["coords"]["y"] = node[1]
                         break;
                         default:
-                        player["direction"] = data
+                        player["coords"]["x"] = node[0]
+                        player["coords"]["y"] = node[1]
                         console.log("Error: Sorry we are doing something wrong ;-; please help us by telling us you read this.")
                 }
         }
