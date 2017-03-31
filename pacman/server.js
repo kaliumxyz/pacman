@@ -5,6 +5,13 @@ const readline = require('readline')
 const timer = require('timers')
 const assets = require("./enums.js")
 
+const Direction = {
+    NEUTRAL: 0,
+    LEFT: 37,
+    UP: 38,
+    RIGHT: 39,
+    DOWN: 40,
+}
     const nodesMap = [
     //lane 1
     [5,29,8],
@@ -124,7 +131,8 @@ const server = http.createServer((req, res) => {
 
 const io = require('socket.io').listen(server)
 
-const checkMap = player => {
+const checkMap = (player, data) => {
+        //0=right 1=down 2=left 3=up. split= 1==| 2==_ 3== | 4== - 5==|_ 6==_| 7==-| 8==|-
         const dist = 10
         nodesMap.forEach(node => {
                 // Two if statements for the sake of my sanity and debugging, remove if and only if this is the release canidate.
@@ -137,7 +145,8 @@ const checkMap = player => {
                         case 0:
 
                         default:
-                        console.log("Error 3: movement invalid.")
+                        player["direction"] = data
+                        console.log("Debug mode is active.")
                 }
         }
 })
@@ -145,13 +154,17 @@ const checkMap = player => {
 // const changeDirection(player, node){
 //
 // }
+const handleInput = (key, agent) => {
+        //console.log(key)
+        io.emit('UpdatePlayer', { key, agent })
+}
 
 // Handles the websocket client connect.
 io.sockets.on("connection", socket => {
         console.log("User connected: " + socket.id)
         players[socket.id] = {
                 coords: { x: 16, y: 36 },
-                direction: 0
+                direction: Direction.RIGHT
         }
         socket.emit("connected", players)
         socket.emit("connectedYou", socket.id)
@@ -166,20 +179,32 @@ io.sockets.on("connection", socket => {
         socket.on("keyStroke", function (data) {
                 console.log(data)
                 if (data>36 && data<41){
-                        checkMap(players[socket.id])
-                        players[socket.id]["coords"]["x"] += 1
+                        checkMap(players[socket.id], data)
                 }
         })
 
         socket.on("ClientMessage", (key, agent) => handleInput(key, agent))
 })
 
+const movePlayers = _ => {
+const localplayers = Object.keys(players)
+    let key = 0
+    for (let i = 0; i < localplayers.length; i++) {
+        if (i < 5) {
+            key = localplayers[i]
+                // Replace with switch when I start giving a f*ck.
+            if (players[key]["direction"] == Direction.RIGHT) { players[key]["coords"]["x"] +=1 }
+            if (players[key]["direction"] == Direction.DOWN) { players[key]["coords"]["y"] +=1 }
+            if (players[key]["direction"] == Direction.LEFT) { players[key]["coords"]["x"] -= 1 }
+            if (players[key]["direction"] == Direction.UP) { players[key]["coords"]["y"] -= 1 }
 
+        }
+}}
 
-
+// A horrible solution, but it works (bread or butter?).
 setInterval(function () {
+        movePlayers()
         io.sockets.emit("updatePlayerPosition", players)
-
 }, FPS)
 
 const handleCommand = input => {
@@ -187,10 +212,6 @@ if (input === '/quit')
 process.exit()
 }
 
-const handleInput = (key, agent) => {
-        //console.log(key)
-        io.emit('UpdatePlayer', { key, agent })
-}
 
 // Sends a message to all clients.
 rl.on('line', input => {
