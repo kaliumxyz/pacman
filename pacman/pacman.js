@@ -34,7 +34,7 @@
             ghostTimer2 = 0,
             gSpeed = 1,
             flight = 0;
-            
+
         //sprites
         var sprites = new Image();
         sprites.src = "Images/sprites.png";
@@ -42,9 +42,9 @@
         var waka = new Audio("Sounds/waka.ogg");
         var opening = new Audio("Sounds/opening.ogg");
         var dead = new Audio("Sounds/dead.ogg");
-        
-        
-        
+
+
+
         //array
         var keyPressList = new Array();
         var ghostCords = new Array();
@@ -52,7 +52,7 @@
         ghostCords[1] = ('89,130,1,0,600');
         ghostCords[2] = ('105,130,1,0,300');
         ghostCords[3] = ('121,130,1,0,900');
-        
+
         //ghost map
         //map = "widthmin,heightmin,widthmax,heightmax,type" 1==| 2==_ 3== | 4== - 5==|_ 6==_| 7==-| 8==|-
         var gmap = new Array();
@@ -63,9 +63,9 @@
         gmap.push('117,29,8')
         gmap.push('165,29,4')
         gmap.push('205,29,7')
-        
+
         //lane 2
-        
+
         gmap.push('5,61,1')
         gmap.push('45,61,0')
         gmap.push('69,61,4')
@@ -74,7 +74,7 @@
         gmap.push('141,61,4')
         gmap.push('165,61,0')
         gmap.push('205,61,3')
-        
+
         //lane 3
         gmap.push('5,85,5')
         gmap.push('45,85,3')
@@ -84,13 +84,13 @@
         gmap.push('141,85,6')
         gmap.push('165,85,1')
         gmap.push('205,85,6')
-        
+
         //lane 4
         gmap.push('69,109,8')
         gmap.push('93,109,2')
         gmap.push('117,109,2')
         gmap.push('141,109,7')
-        
+
         //lane 5 teleport ding implanteren hiero_____________________________
         gmap.push('-16,133,9')
         gmap.push('45,133,0')
@@ -98,12 +98,12 @@
         gmap.push('141,133,1')
         gmap.push('165,133,0')
         gmap.push('240,133,10')
-        
-        
+
+
         //lane 6
         gmap.push('69,157,1')
         gmap.push('141,157,3')
-        
+
         //lane 7
         gmap.push('5,181,8')
         gmap.push('45,181,0')
@@ -113,7 +113,7 @@
         gmap.push('141,181,2')
         gmap.push('165,181,0')
         gmap.push('205,181,7')
-        
+
         //lane 8 1==| 2==_ 3== | 4== - 5==|_ 6==_| 7==-| 8==|-
         gmap.push('5,205,5')
         gmap.push('21,205,7')
@@ -125,7 +125,7 @@
         gmap.push('141,205,4')
         gmap.push('189,205,8')
         gmap.push('205,205,6')
-        
+
         //lane 9
         gmap.push('5,229,8')
         gmap.push('21,229,2')
@@ -137,13 +137,13 @@
         gmap.push('165,229,5')
         gmap.push('189,229,2')
         gmap.push('205,229,7')
-        
+
         //lane 10
         gmap.push('5,253,5')
         gmap.push('93,253,2')
         gmap.push('117,253,2')
         gmap.push('205,253,6')
-        
+
         //kooi
         gmap.push('89,128,8')
         gmap.push('89,138,5')
@@ -208,19 +208,19 @@
         sector.push('109,221,115,251');
         sector.push('133,245,203,251');
         sector.push('1,269,243,271');
-        
-        
+
+
         var balls = new Array();
-        
-        
+
+
         //essencials
         window.addEventListener("load", eventWindowLoaded, false);
         setInterval(eventWindowLoaded, 33);
-        
 
-        function eventWindowLoaded () 
-        {          
-          
+
+        function eventWindowLoaded ()
+        {
+
           var theCanvas= document.getElementById("canvas");
           if(!theCanvas || !theCanvas.getContext)
           {
@@ -238,7 +238,7 @@
             {
                 DrawStart(context);
             }
-            
+
             if (gamestate===1)
             {
                 Dead(context);
@@ -250,15 +250,15 @@
                 DrawGhosts(context);
                 CalcMovements();
            }
-           
+
            if (gamestate===3)
            {
                Win(context);
-               
+
            }
           }
         }
-        
+
         function resize (theCanvas)
         {
             if (height!==window.innerHeight)
@@ -270,7 +270,7 @@
         }
         function DrawBackground(context)
         {
-            
+
             context.fillStyle = '#000000';
             context.fillRect(0, 0, 244, 289);
             context.drawImage(sprites, 0, 0, 224, 248, 0, 24, 224, 248);
@@ -286,7 +286,7 @@
             if (lives>=2) {context.drawImage(sprites, 96, 315, 11, 11, 35, 274, 11, 11)}
             if (lives>=1) {context.drawImage(sprites, 96, 315, 11, 11, 19, 274, 11, 11)}
             //document.addEventListener('mousedown',toucht,false)
-            
+
         }
         function toucht(event)
         {
@@ -301,17 +301,17 @@
             if (x>wwidth*0.5){keyPressList[39]=true} else {keyPressList[39]=false}
             if (y<=wheight*0.3){keyPressList[37]=false; keyPressList[39]=false; keyPressList[38]=true} else {keyPressList[38]=false}
             if (y>wheight*0.7){keyPressList[37]=false; keyPressList[39]=false; keyPressList[40]=true} else {keyPressList[40]=false}
-            
+
             console.log(event.clientX + "," + event.clientY + "," + height)
-            
-         
+
+
           // Left keyPressList[37]
           // down keyPressList[40]
           // right keyPressList[39]
           // up keyPressList[38]
         }
         function DrawStart(context)
-        {   
+        {
             context.fillStyle = '#ffffff';
             context.font = '40px _sans';
             context.textBaseline = 'top';
@@ -321,7 +321,7 @@
             context.fillText("press space to start",20, 144);
             if (keyPressList[32]==true || click==true)
             {
-                
+
                 deadtimer=0;
                 deadState=0;
                 px=106;
@@ -331,7 +331,7 @@
                 gamestate = 2;
                 lives = 2;
                 opening.play();
-                
+
                 ghostCords[0] = ('120,109,0,0,0');
                 ghostCords[1] = ('89,130,1,0,600');
                 ghostCords[2] = ('105,136,3,0,300');
@@ -613,7 +613,7 @@
                 balls.push('212,260');
             }
         }
-        
+
         function Reset()
         {
                 deadtimer=0;
@@ -628,7 +628,7 @@
             ghostCords[3] = ('121,130,1,0,600');
             gamestate=2;
         }
-        
+
         //player
         function DrawPlayer(context)
         {
@@ -639,26 +639,26 @@
             if (spriteWidth>209 && spriteState==0) {spriteWidth = 193, spriteState=1}
             }
 
-            
+
             context.drawImage(sprites, spriteWidth, spriteH, 13, 13, px, py, 13, 13);
         }
-        
+
 
         function DrawLevel(context)
         {
-//           
+//
 //            context.fillStyle = '#ffffff';
 //            if (debug===true){for(var f = 0;f<sector.length;f++){
 //            context.fillRect(sector[f].split(",")[0],sector[f].split(",")[1],sector[f].split(",")[2]-sector[f].split(",")[0],sector[f].split(",")[3]-sector[f].split(",")[1]);}}
-            
-            
+
+
             context.fillStyle = '#FF9E83';
             for(var b = 0;b<balls.length;b++){
             if (px<=balls[b].split(",")[0] && px+13>=balls[b].split(",")[0] && py<=balls[b].split(",")[1] && py+13>=balls[b].split(",")[1] && balls[b].split(",")[2]==undefined) {balls[b] += ',' + '1', score++; if (b==30 || b==35 || b==158 || b==177){flight=60}}
             if (balls[b].split(",")[2]==undefined){if (b==30 || b==35 || b==158 || b==177){context.fillRect(balls[b].split(",")[0]-3,balls[b].split(",")[1]-3, 6 , 6)} else {
             context.fillRect(balls[b].split(",")[0]-1,balls[b].split(",")[1]-1, 2 , 2);}
         }}
-    
+
 
             if (sectors != undefined){
                 if(sectors.split(",")[0]=="27") {px=220}
@@ -676,9 +676,9 @@
                     if(sectors2.split(",")[4]<=py && sectors2.split(",")[1]-12<=px && sectors2.split(",")[3]>=px){up=false}
                     }
             } else {left=true, up=true, right=true, down=true}
-            
+
             if (score>=244){gamestate=3}
-            
+
             if (keyPressList[85]==true)
             {
                 lives=lives-1
@@ -694,23 +694,23 @@
                 sprites.src = "Images/spritesdepth.png";
             }
         }
-        
+
         function DrawGhosts(context)
-        {           
+        {
             ghostTimer = ghostTimer + 1;
             if (ghostTimer === 20) {ghostTimer = 0}
             ghostTimer2 = ghostTimer2 + 1;
             if (ghostTimer2 === 30) {ghostTimer2 = 0}
-            
+
             ghost(0,context)
             ghost(1,context)
             ghost(2,context)
             ghost(3,context)
         }
-        
+
         function ghost(id,context)
         {
-            
+
             var tempX = parseFloat(ghostCords[id].split(',')[0])
             var tempY = parseFloat(ghostCords[id].split(',')[1])
             var tempS = parseFloat(ghostCords[id].split(',')[3])
@@ -730,50 +730,50 @@
                             } else {
                              var tempC = (pathfinding(gmap,tempX,tempY,id,px,py,3))}
                             }
-            
-            
+
+
             if (tempC != undefined) {if (typeof tempC == "string") {var tempD=tempC.split(',')[0]; tempX=parseFloat(tempC.split(',')[1])} else {var tempD=tempC}} else {var tempD=parseFloat(ghostCords[id].split(',')[2])}
-            
+
             if (tempS>0){
-                
+
                 var tempSpeed=1
                 tempS=tempS-1
                 tempColor=313
                 tempW=1 + 16 * tempD
                 if (tempX>=104 && tempX<=106 && tempY>=124 && tempY<=127) {tempS=-1; tempR=40}
             } else {
-                
+
                 if (flight>0 && tempS==0 && tempR==0) {
                     var tempSpeed=gSpeed
                     if (ghostTimer2>=15){tempColor=297} else {tempColor=281}
                     var tempW = 129;
                     if (tempX+12>=px && tempX<=px+12 && tempY+12>=py && tempY<=py+12){tempS=600}
-                    
+
                         } else {
                           var tempSpeed=1
                           var tempColor = 249 + 16 * id;
                           var tempW = 1 + 32 * tempD
                           if (tempX+12>=px && tempX<=px+12 && tempY+12>=py && tempY<=py+12){lives=lives-1, gamestate=1}
                           }}
-            
-            
+
+
             if (tempD==0) {tempX=tempX+1*tempSpeed}
             if (tempD==1) {tempY=tempY+1*tempSpeed}
             if (tempD==2) {tempX=tempX-1*tempSpeed}
             if (tempD==3) {tempY=tempY-1*tempSpeed}
             if (tempX<=244 && tempX>=-20  && tempY>=0 && tempY<=288) {} else {console.log(tempX+","+tempY); tempX=5; tempY=29}
-            
-            
+
+
             if (ghostTimer>=10 && tempS<=0){tempW=tempW+16}
             ghostCords[id] = tempX + ',' + tempY + ',' + tempD + ',' + tempS + ',' + tempR
             tempX=parseFloat(tempX.toFixed())
             tempY=parseFloat(tempY.toFixed())
             context.drawImage(sprites,tempW,tempColor,14,14,tempX,tempY,14,14)
         }
-        
+
         function pathfinding(arr,x,y,id,tx,ty,random)
         {//0=right 1=down 2=left 3=up. split= 1==| 2==_ 3== | 4== - 5==|_ 6==_| 7==-| 8==|-
-            
+
             x=x.toFixed()
             y=y.toFixed()
 
@@ -784,12 +784,12 @@
                 if (tx-x>0){priorityX=tx-x} else {priorityX=x-tx}
                 if (ty-y>0){priorityY=ty-y} else {priorityY=y-ty}
                 go = true
-                
+
                 if (arr[i].split(",")[2]!=3 && arr[i].split(",")[2]!=6 && arr[i].split(",")[2]!=7){var r=true} else {var r=false}
                 if (arr[i].split(",")[2]!=1 && arr[i].split(",")[2]!=5 && arr[i].split(",")[2]!=8){var l=true} else {var l=false}
                 if (arr[i].split(",")[2]!=2 && arr[i].split(",")[2]!=5 && arr[i].split(",")[2]!=6){var d=true} else {var d=false}
                 if (arr[i].split(",")[2]!=4 && arr[i].split(",")[2]!=7 && arr[i].split(",")[2]!=8){var u=true} else {var u=false}
-                
+
                 if (arr[i].split(",")[2]==9) {priority=2; newx = 239; go=false; return priority + "," + newx}
                 if (arr[i].split(",")[2]==10) {priority=0; newx = -15; go=false; return priority + "," + newx}
                 if (arr[i].split(",")[2]==11 && random==2) {priority=1; go=false; return priority}
@@ -797,7 +797,7 @@
                 if (go==true){
                 if ((Math.floor((Math.random()*10)+1))==2 && random!=1 || flight>0 && random<=0){
                     if (flight>0){flight=flight-1, gSpeed=0.5}
-                    priority = (Math.floor((Math.random()*3)+1))                                   
+                    priority = (Math.floor((Math.random()*3)+1))
                              if (r==true && priority==0) {priority=0} else {
                                     if (d==true && priority==1){priority=1} else {
                                         if (l==true && priority==2) {priority=2} else {
@@ -816,43 +816,43 @@
                                         priority=4}}}}
 
             } else {
-                    
+
                         if (y<=ty && d==true){priority=1} else {
                             if (y>=ty && u==true){priority=3} else {
                                 if (x<=tx && r==true){priority=0} else {
                                     if (x>=tx && l==true) {priority=2} else {
                                          priority=4}}}}}
-                                    
 
-                                    
-                                    
-                                    
+
+
+
+
                                     if (priority==4 && arr[i].split(",")[2]!=11){
                                         if (r!=true) {priority=2} else {
                                             if (d!=true){priority=3} else {
                                                 if (l!=true) {priority=0} else {
                                                     if (u!=true){priority=1}
-                                                        
-                                                    
+
+
                                         }}}
                                     }}}
-                                
-                                    
+
+
 //                     console.log(priority)
                     return priority;
-              
+
               }
         }}
 
 
-        
+
         function include(arr,y,x,s2)
         {
         for (var i = 0;i<arr.length;i++){
         if (arr[i].split(",")[0]-15 <= x && arr[i].split(",")[2]- -2 >= x &&  arr[i].split(",")[1]-15 <= y && arr[i].split(",")[3]- -2 >=y && i != s2) {return i + "," + arr[i]}
 }}
-        
-        
+
+
         function CalcMovements()
         {
           if (keyPressList[37]==true)
@@ -899,16 +899,16 @@
             deadtimer = deadtimer + 0.08
             if (deadtimer>1)
             {
-                
+
                 deadtime=deadtime+1
                 if(deadtime==2){
                  deadState = deadState + 16, deadtime=0}
-                 
-                 
+
+
                 if (deadState<176) {
-                    
+
                 dead.play();
-            context.drawImage(sprites, deadState, 330, 16, 13, 
+            context.drawImage(sprites, deadState, 330, 16, 13,
             px-2, py, 16, 13);
             } else {if (lives>=0){
             context.textBaseline = 'top';
@@ -918,19 +918,19 @@
             if (keyPressList[32]==true  || click==true)
             {
                 Reset()
-            }} 
+            }}
                    else {
             Gamelost(context)
-            
+
             }}}
                     else
                 {
-                    context.drawImage(sprites, 193, 315, 13, 13, 
+                    context.drawImage(sprites, 193, 315, 13, 13,
                     px, py, 13, 13);
                 }
     }
-    
-    
+
+
         function Win(context)
         {
             context.fillStyle = '#ffffff';
@@ -944,8 +944,8 @@
                 gamestate=0;
             }
         }
-    
-    
+
+
         function Gamelost(context)
         {
              context.fillStyle = '#ffffff';
@@ -959,11 +959,11 @@
                 gamestate=0;
             }
         }
-        
 
-        
-        
-        
+
+
+
+
           //contol scripts
           document.onkeydown = function(e){
           e=e?e:window.event;
