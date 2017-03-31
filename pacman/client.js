@@ -57,7 +57,23 @@ window.onkeydown = e => moveCharacter(e.keyCode)
 // Gets every key the user presses and sends them to the server.
 window.onkeydown = e => socket.emit("keyStroke", e.keyCode)
 
-
+function move(side) {
+    if (side == "up") {
+        socket.emit("keyStroke", Direction.UP)
+    }
+    else if (side == "left") {
+        socket.emit("keyStroke", Direction.LEFT)
+    }
+    else if (side == "right") {
+        socket.emit("keyStroke", Direction.RIGHT)
+    }
+    else if (side == "down") {
+        socket.emit("keyStroke", Direction.DOWN)
+    }
+    else {
+        console.log("No idea what you are doing but please to it.")
+    }
+}
 
 
 socket.on("connected", function updatePlayers(data) {
