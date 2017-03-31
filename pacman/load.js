@@ -17,6 +17,16 @@ const load = callback => {
     soundButton.innerHTML = '<button onclick="Mute()">Toggle sound</button>'
     div.appendChild(soundButton)
 
+    let controlles = document.createElement('div')
+    controlles.innerHTML = `<div style="text-align:center;width:480px;">
+  <button ontouch="move('up')">UP</button><br><br>
+  <button ontouch="move('left')">LEFT</button>
+  <button ontouch="move('right')">RIGHT</button><br><br>
+  <button ontouch="move('down')">DOWN</button>
+</div>`
+    div.appendChild(controlles)
+
+
     let scores = document.createElement('div')
     scores.setAttribute('id', 'divScores')
     scores.innerHTML = `<h1>Points</h1> <ul id="scores"></ul>`
