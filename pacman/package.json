@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "browser-sync": "^2.18.8",
-    "global": "^4.3.1"
-  }
-}
