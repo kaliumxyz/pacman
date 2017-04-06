@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "blessed": "^0.1.81",
+    "global": "^4.3.1"
+  }
+}
