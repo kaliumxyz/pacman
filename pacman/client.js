@@ -92,6 +92,7 @@ socket.on("disconnect", function updatePlayerPosition(data) {
 socket.on("updatePlayerPosition", function updatePlayerPosition(data) {
         players = data
 })
+socket.on("updateBalls", data => balls = data)
 
 function drawBalls() {
     context.fillStyle = "#FF9E83"
