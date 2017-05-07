@@ -3,7 +3,6 @@ const fs = require('fs')
 const http = require('http')
 const readline = require('readline')
 const timer = require('timers')
-const assets = require("./enums.js")
 
 const Direction = {
 	NEUTRAL: 0,
@@ -519,6 +518,7 @@ function checkBalls (player) {
 	})
         if (balls.length===0)
 	io.emit('updateState', "end")
+	io.emit("updateBalls",balls)
 
 }
 
@@ -562,13 +562,12 @@ io.sockets.on("connection", socket => {
 
 const movePlayers = _ => {
 	const localplayers = Object.keys(players)
-	let key = 0
 	for (let i = 0; i < localplayers.length; i++) {
 		if (i < 5) {
-			key = localplayers[i]
+			let key = localplayers[i]
 			checkBalls(players[key])
 			checkMap(players[key], players["direction"])
-		}
+		} else
 		break;
 	}}
 
@@ -580,7 +579,6 @@ function movePlayer(player){
 	if (player["direction"] == Direction.UP) { player["coords"]["y"] -= 1 }
 }
 
-// A horrible solution, but it works (bread or butter?).
 setInterval(function () {
 	movePlayers()
 	io.sockets.emit("updatePlayerPosition", players)
